@@ -1,0 +1,33 @@
+# .github/workflows/ci.yml
+name: Node.js CI
+
+on:
+  push:
+    branches: 
+      - master
+      - main
+  # pull_request:
+  #   branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    # strategy:
+      # matrix:
+      #   node-version: [14, 16, 18]
+
+    steps:
+      - name: Clone repository into the gitHub runner
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npx jest
